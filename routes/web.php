@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\SisController;
 use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\UploadController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -73,5 +75,10 @@ Route::get('halo', function (Request $request) {
 // Route::get('siswa', [SiswaController::class, 'index']);
 // Route::get('tambahsiswa', [SiswaController::class, 'create']);
 
+Route::resource('siswa', SiswaController::class)->middleware(['auth', 'admin']);
 
-Route::resource('siswa', SiswaController::class);
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('upload', UploadController::class);
